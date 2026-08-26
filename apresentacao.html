@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apresentação TCC — Bru Inktattoo Studio & Notion MCP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d0d11;
+      --bg-surface: #14141a;
+      --bg-card: #1c1c24;
+      --bg-card-hover: #242430;
+      --gold-primary: #d4af37;
+      --gold-light: #f5d77f;
+      --gold-glow: rgba(212, 175, 55, 0.25);
+      --text-main: #f5f5f7;
+      --text-muted: #9e9ea7;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(212, 175, 55, 0.35);
+      --accent-blue: #38bdf8;
+      --accent-green: #34d399;
+      --accent-purple: #c084fc;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Glow Background */
+    .ambient-glow {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(13, 13, 17, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Top Control Bar */
+    header.deck-header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(20, 20, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      color: #000;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 1px;
+    }
+
+    .project-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: 0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-subtle);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-card);
+      border-color: var(--gold-primary);
+      color: var(--gold-light);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-primary), #b58d24);
+      color: #0d0d11;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 20px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+
+    /* Main Presentation Container */
+    main.deck-container {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      gap: 1.5rem;
+    }
+
+    /* Slide Stage (16:9 Aspect Ratio Container) */
+    .stage-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      display: none;
+      flex: 1;
+      padding: 3rem 4rem;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Slide Content Typography */
+    .slide-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .slide-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.4rem;
+      display: inline-block;
+    }
+
+    .slide-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      color: var(--text-main);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .slide-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 850px;
+    }
+
+    /* Grid Layouts inside slides */
+    .cards-grid {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+      flex: 1;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--border-gold);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-list li {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #d1d1d8;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .card-list li::before {
+      content: "•";
+      color: var(--gold-primary);
+      font-weight: bold;
+    }
+
+    /* Cover Slide Styling */
+    .cover-slide {
+      justify-content: center;
+      align-items: flex-start;
+      padding: 4.5rem 5rem;
+      background: radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.08), transparent 60%);
+    }
+
+    .cover-badge {
+      padding: 0.4rem 1rem;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .cover-title {
+      font-family: 'Cinzel', serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 40%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-desc {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      line-height: 1.5;
+      margin-bottom: 2.5rem;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold-primary);
+    }
+
+    .meta-val {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Slide Navigation Bar (Bottom of Stage) */
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.5rem;
+      background: rgba(13, 13, 17, 0.95);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: 4px;
+      margin: 0 1.5rem;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+      width: 12.5%;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-width: 60px;
+    }
+
+    .nav-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .nav-btn:hover {
+      background: var(--gold-primary);
+      color: #000;
+      border-color: var(--gold-primary);
+    }
+
+    /* Speaker Notes & Google Slides Instructions Modal / Drawer */
+    .drawer-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .drawer-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .notes-box {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--gold-primary);
+    }
+
+    .google-slides-guide {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.85rem;
+    }
+
+    .step-number {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: var(--gold-primary);
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Interactive Slide Quick Selector */
+    .thumbnails-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 0.5rem;
+    }
+
+    .thumb-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .thumb-btn:hover, .thumb-btn.active {
+      border-color: var(--gold-primary);
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    @media (max-width: 1024px) {
+      .grid-3, .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .slide {
+        padding: 2rem;
+      }
+      .slide-title {
+        font-size: 1.8rem;
+      }
+      .thumbnails-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid-3, .grid-4, .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .stage-wrapper {
+        aspect-ratio: auto;
+        min-height: 520px;
+      }
+      .cover-title {
+        font-size: 2.2rem;
+      }
+      header.deck-header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .thumbnails-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- Header -->
+  <header class="deck-header">
+    <div class="brand-title">
+      <span class="brand-badge">CANVAS WIDGET</span>
+      <span class="project-name">Bru Inktattoo — Apresentação TCC</span>
+    </div>
+    <div class="header-actions">
+      <a href="apresentacao_tcc.pptx" download="apresentacao_tcc.pptx" class="btn btn-primary" title="Baixar arquivo compatível com Apresentações Google">
+        📥 Baixar .PPTX (Google Slides)
+      </a>
+      <a href="index.html" target="_blank" class="btn btn-outline">
+        🌐 Abrir Site Ao Vivo
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Presentation Deck -->
+  <main class="deck-container">
+
+    <!-- Quick Slide Selector -->
+    <div class="thumbnails-grid">
+      <button class="thumb-btn active" onclick="goToSlide(0)">01. Capa</button>
+      <button class="thumb-btn" onclick="goToSlide(1)">02. Contexto</button>
+      <button class="thumb-btn" onclick="goToSlide(2)">03. Tech Stack</button>
+      <button class="thumb-btn" onclick="goToSlide(3)">04. SOLID</button>
+      <button class="thumb-btn" onclick="goToSlide(4)">05. UI/UX</button>
+      <button class="thumb-btn" onclick="goToSlide(5)">06. Notion MCP</button>
+      <button class="thumb-btn" onclick="goToSlide(6)">07. Qualidade</button>
+      <button class="thumb-btn" onclick="goToSlide(7)">08. Conclusão</button>
+    </div>
+
+    <!-- 16:9 Presentation Stage -->
+    <div class="stage-wrapper" id="stageWrapper">
+
+      <!-- SLIDE 1: Capa -->
+      <div class="slide cover-slide active" data-notes="Bem-vindos à defesa do projeto Bru Inktattoo Studio. Este trabalho consiste no desenvolvimento de uma aplicação web de alta performance e apelo estético voltada a estúdios de tatuagem, integrando automação de agendamentos com o Notion via Model Context Protocol (MCP).">
+        <div class="cover-badge">TRABALHO DE CONCLUSÃO DE CURSO (TCC) • PROJETO FINAL</div>
+        <h1 class="cover-title">Bru Inktattoo Studio</h1>
+        <p class="cover-desc">Website Institucional e Sistema Automatizado de Agendamento com Integração Notion MCP e Arquitetura SOLID.</p>
+        
+        <div class="cover-meta">
+          <div class="meta-item">
+            <span class="meta-label">Projeto</span>
+            <span class="meta-val">Website SPA & Agendamento CRM</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Arquitetura</span>
+            <span class="meta-val">Modular • SOLID • MCP Integration</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Tecnologias</span>
+            <span class="meta-val">HTML5 • CSS3 Dark Aesthetic • JS ES6+ • Node.js</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Ano</span>
+            <span class="meta-val">2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Contexto & Proposta de Valor -->
+      <div class="slide" data-notes="Neste slide abordamos o cenário atual. O mercado de tatuagem autoral exige forte posicionamento visual. O atendimento tradicional via redes sociais causa gargalos e orçamentos incompletos. Nossa solução resolve isso centralizando o portfólio em alta resolução e automatizando a triagem de orçamentos.">
+        <div class="slide-header">
+          <span class="slide-tag">01. Contexto & Problema</span>
+          <h2 class="slide-title">Modernização da Presença Digital & Captação</h2>
+          <p class="slide-subtitle">Unindo experiência estética de alto padrão e automação de orçamentos para estúdios de arte corporal.</p>
+        </div>
+        <div class="cards-grid grid-3">
+          <div class="card">
+            <div class="card-icon">🎨</div>
+            <h3 class="card-title">Cenário & Desafio</h3>
+            <ul class="card-list">
+              <li>Mercado autoral exige autoridade visual e sofisticação.</li>
+              <li>Atendimento via redes sociais gera perda de leads e orçamentos truncados.</li>
+              <li>Falta de espaço oficial para expor biossegurança e cuidados pós-sessão.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">💡</div>
+            <h3 class="card-title">Proposta de Valor</h3>
+            <ul class="card-list">
+              <li>Design Dark Aesthetic premium com tipografia clássica (Cinzel) e moderna.</li>
+              <li>Conteúdo educativo detalhado sobre estilos, higiene e cicatrização.</li>
+              <li>Canal direto de agendamento com validação instantânea de dados.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3 class="card-title">Solução Implementada</h3>
+            <ul class="card-list">
+              <li>SPA fluida com 8 seções conectadas por scroll suave.</li>
+              <li>Integração direta com o Notion MCP Server para triagem instantânea.</li>
+              <li>Design System acessível (WCAG AA) e conformidade com a LGPD.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Tech Stack & Ferramentas Empregadas -->
+      <div class="slide" data-notes="Aqui sintetizamos as principais ferramentas utilizadas. Optamos por um stack limpo e eficiente: HTML5 semântico, CSS3 puro com variáveis e Glassmorphism, JavaScript ES6+ sem a sobrecarga de frameworks pesados, Node.js no backend e o inovador Notion MCP Server para persistência de dados.">
+        <div class="slide-header">
+          <span class="slide-tag">02. Stack Tecnológica</span>
+          <h2 class="slide-title">Ferramentas Empregadas no Desenvolvimento</h2>
+          <p class="slide-subtitle">Síntese sucinta das linguagens, frameworks, padrões e serviços adotados na construção do ecossistema.</p>
+        </div>
+        <div class="cards-grid grid-4">
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <h3 class="card-title">Frontend Core</h3>
+            <ul class="card-list">
+              <li><strong>HTML5 Semântico:</strong> Estrutura limpa, tags acessíveis e marcos (landmarks).</li>
+              <li><strong>CSS3 Moderno:</strong> Design tokens (variáveis), Dark Aesthetic e Glassmorphism.</li>
+              <li><strong>JS ES6+:</strong> Lógica assíncrona pura e desacoplada.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3 class="card-title">Backend & Server</h3>
+            <ul class="card-list">
+              <li><strong>Node.js:</strong> Servidor HTTP nativo desacoplado para entrega de assets e API.</li>
+              <li><strong>MIME Control:</strong> Suporte total a WebP, SVG e fontes otimizadas.</li>
+              <li><strong>Modo Dual:</strong> Simulação estruturada em dev e modo real com Token.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔗</div>
+            <h3 class="card-title">Notion MCP</h3>
+            <ul class="card-list">
+              <li><strong>Model Context Protocol:</strong> Padronização do tráfego de dados.</li>
+              <li><strong>Database Notion:</strong> CRM em nuvem com Nome, Celular, E-mail e Ideia.</li>
+              <li><strong>API REST JSON:</strong> Sanitização e validação de payloads.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛠️</div>
+            <h3 class="card-title">Qualidade & Tools</h3>
+            <ul class="card-list">
+              <li><strong>Antigravity IDE & Canvas:</strong> Engenharia assistida e apresentação interativa.</li>
+              <li><strong>Google Fonts:</strong> Tipografias Cinzel, Syne e Plus Jakarta Sans.</li>
+              <li><strong>Git & SDD.md:</strong> Especificação técnica formal e versionamento.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Arquitetura SOLID -->
+      <div class="slide" data-notes="Um dos grandes diferenciais do projeto foi a aplicação rigorosa dos princípios SOLID no JavaScript Vanilla. Cada módulo tem responsabilidade única: formValidator valida, Toast exibe avisos, Carousel gerencia o slider e notionService encapsula o envio.">
+        <div class="slide-header">
+          <span class="slide-tag">03. Engenharia de Software</span>
+          <h2 class="slide-title">Arquitetura Modular & Princípios SOLID</h2>
+          <p class="slide-subtitle">Separação rigorosa de responsabilidades para garantir código limpo, testável e manutenível.</p>
+        </div>
+        <div class="cards-grid grid-2">
+          <div class="card">
+            <h3 class="card-title">S — Single Responsibility Principle</h3>
+            <ul class="card-list">
+              <li><code>formValidator.js</code>: Validação pura de Regex e máscara de telefone sem tocar no DOM.</li>
+              <li><code>Toast.js</code>: Gerenciamento autônomo de toasts de feedback (sucesso/erro).</li>
+              <li><code>Navigation.js</code> & <code>Carousel.js</code>: Controle isolado de interações e gestos.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">O — Open/Closed Principle</h3>
+            <ul class="card-list">
+              <li><code>contentLoader.js</code>: Lê dinamicamente <code>Recursos/conteudo.txt</code>, permitindo incluir novos parceiros ou dicas sem alterar os componentes visuais.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">L & I — Liskov Substitution & Interface Segregation</h3>
+            <ul class="card-list">
+              <li><code>notionService.js</code>: Implementa contrato padronizado que pode ser substituído por mocks de teste sem afetar o formulário. Componentes usam interfaces enxutas.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">D — Dependency Inversion Principle</h3>
+            <ul class="card-list">
+              <li><code>AppointmentForm.js</code>: Dependências (validador, serviço e toast) são injetadas no bootstrap de <code>app.js</code>, garantindo baixo acoplamento.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Funcionalidades & UI/UX -->
+      <div class="slide" data-notes="Na experiência do usuário, implementamos um carrossel interativo com suporte nativo a gestos de arrasto (touch swipe), lightbox para zoom nas artes, scroll reveal animado e formulário com validação em tempo real e prevenção de envios incorretos.">
+        <div class="slide-header">
+          <span class="slide-tag">04. Funcionalidades & UI/UX</span>
+          <h2 class="slide-title">Recursos Interativos & Diferenciais Visuais</h2>
+          <p class="slide-subtitle">Engajamento do visitante através de micro-interações, feedbacks táteis e design imersivo.</p>
+        </div>
+        <div class="cards-grid grid-3">
+          <div class="card">
+            <div class="card-icon">🖼️</div>
+            <h3 class="card-title">Portfólio & Carrossel</h3>
+            <ul class="card-list">
+              <li>13 fotografias em alta resolução de trabalhos autorais.</li>
+              <li>Suporte completo a Touch Swipe (mobile), setas e bullets.</li>
+              <li>Lightbox modal integrado com zoom e fechamento via tecla ESC.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">📋</div>
+            <h3 class="card-title">Formulário Inteligente</h3>
+            <ul class="card-list">
+              <li>4 campos estritos: Nome, E-mail, Celular (máscara dinâmica) e Briefing.</li>
+              <li>Validação instantânea no evento blur/input com mensagens de auxílio.</li>
+              <li>Spinner de loading e bloqueio preventivo contra cliques duplos.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔔</div>
+            <h3 class="card-title">Feedback & Animações</h3>
+            <ul class="card-list">
+              <li>Sistema de Toasts flutuantes com auto-dismiss temporizado.</li>
+              <li>Scroll Reveal fluido com IntersectionObserver nativo.</li>
+              <li>Navbar fixa com efeito Glassmorphism e ScrollSpy ativo.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: Integração Notion MCP -->
+      <div class="slide" data-notes="O fluxo de integração com o Notion MCP é o coração da automação. Quando o cliente envia a ideia, o backend envia os dados estruturados para a Database do Notion. A tatuadora visualiza imediatamente o novo lead com link direto para o WhatsApp do cliente.">
+        <div class="slide-header">
+          <span class="slide-tag">05. Integração Notion MCP</span>
+          <h2 class="slide-title">Fluxo Automatizado de Captação & CRM</h2>
+          <p class="slide-subtitle">Conexão segura e em tempo real entre a interface pública do site e a gestão interna do estúdio.</p>
+        </div>
+        <div class="cards-grid grid-2">
+          <div class="card">
+            <h3 class="card-title">🔄 Fluxo de Dados Ponta a Ponta</h3>
+            <ul class="card-list">
+              <li><strong>1.</strong> Cliente preenche e submete formulário validado.</li>
+              <li><strong>2.</strong> Requisição POST sanitizada enviada ao <code>/api/appointments</code>.</li>
+              <li><strong>3.</strong> Backend aciona o Notion MCP Server com payload tipado.</li>
+              <li><strong>4.</strong> Registro é gravado na tabela e o frontend exibe o Toast de Sucesso.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">📊 Estrutura no Notion & Benefícios</h3>
+            <ul class="card-list">
+              <li><strong>Nome (Title):</strong> Identificação do cliente.</li>
+              <li><strong>E-mail (Email):</strong> Envio de orçamento formal e orientações.</li>
+              <li><strong>Celular (Rich Text):</strong> Clique direto para iniciar conversa no WhatsApp.</li>
+              <li><strong>Resumo (Rich Text):</strong> Descrição da ideia, estilo e modalidade.</li>
+              <li><strong>Zero Manutenção:</strong> Sem necessidade de gerenciar bancos SQL complexos.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: Qualidade & Segurança -->
+      <div class="slide" data-notes="Em relação aos requisitos não funcionais, garantimos carregamento ultra-rápido com lazy loading, total conformidade com a LGPD e privacidade, e acessibilidade WCAG AA com suporte completo a leitores de tela e navegação por teclado.">
+        <div class="slide-header">
+          <span class="slide-tag">06. Qualidade & Segurança</span>
+          <h2 class="slide-title">Requisitos Não Funcionais & Conformidade</h2>
+          <p class="slide-subtitle">Altos padrões de performance, segurança da informação e acessibilidade digital.</p>
+        </div>
+        <div class="cards-grid grid-4">
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3 class="card-title">Performance</h3>
+            <ul class="card-list">
+              <li>Lazy loading em imagens do portfólio.</li>
+              <li>Carregamento em menos de 2s em redes 4G.</li>
+              <li>Sem frameworks pesados no bundle.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">📱</div>
+            <h3 class="card-title">Responsividade</h3>
+            <ul class="card-list">
+              <li>Abordagem Mobile-First estrita.</li>
+              <li>Adaptação fluida de 360px a 4K.</li>
+              <li>Menu hambúrguer com transição suave.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">♿</div>
+            <h3 class="card-title">Acessibilidade</h3>
+            <ul class="card-list">
+              <li>WCAG 2.1 Nível AA verificado.</li>
+              <li>Contraste de cor elevado (> 4.5:1).</li>
+              <li>Rótulos ARIA e controle via teclado.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔒</div>
+            <h3 class="card-title">Segurança & LGPD</h3>
+            <ul class="card-list">
+              <li>Sanitização ativa contra XSS.</li>
+              <li>Aviso de consentimento e privacidade.</li>
+              <li>Validação rigorosa no cliente e servidor.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: Conclusão & Próximos Passos -->
+      <div class="slide" data-notes="Para concluir, o projeto Bru Inktattoo Studio une com sucesso uma identidade artística marcante a uma engenharia de software sólida baseada em SOLID e automações com Notion MCP. Agradecemos à banca examinadora e estamos à disposição para perguntas.">
+        <div class="slide-header">
+          <span class="slide-tag">07. Conclusão & Futuro</span>
+          <h2 class="slide-title">Resultados Atingidos & Próximos Passos</h2>
+          <p class="slide-subtitle">Entrega de uma solução funcional, moderna e com alto valor agregado para o negócio.</p>
+        </div>
+        <div class="cards-grid grid-3">
+          <div class="card">
+            <div class="card-icon">🏆</div>
+            <h3 class="card-title">Resultados</h3>
+            <ul class="card-list">
+              <li>Entrega 100% aderente ao documento de especificação (SDD.md).</li>
+              <li>Economia estimada de 70% no tempo de triagem de novos clientes.</li>
+              <li>Arquitetura modular de fácil manutenção e expansão.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔮</div>
+            <h3 class="card-title">Evoluções Futuras</h3>
+            <ul class="card-list">
+              <li>Integração de pagamento online para taxa de reserva de horário.</li>
+              <li>Simulador de posicionamento de arte com Realidade Aumentada.</li>
+              <li>Disparo automático de lembretes e cuidados via WhatsApp Webhook.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎓</div>
+            <h3 class="card-title">Agradecimentos</h3>
+            <ul class="card-list">
+              <li>À banca examinadora, professores e orientadores pelo apoio.</li>
+              <li>Projeto: Bru Inktattoo Studio Web & Notion MCP.</li>
+              <li><strong>Espaço aberto para considerações e perguntas da banca.</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage Bottom Controls -->
+      <div class="deck-controls">
+        <button class="nav-btn" onclick="prevSlide()" title="Slide anterior (Seta Esquerda)">❮</button>
+        <div class="slide-counter" id="slideCounter">01 / 08</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <button class="nav-btn" onclick="nextSlide()" title="Próximo slide (Seta Direita / Espaço)">❯</button>
+      </div>
+
+    </div>
+
+    <!-- Speaker Notes and Google Slides Guide -->
+    <div class="drawer-section">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <span>🎙️</span>
+          <span>Notas do Orador (Roteiro de Fala para o TCC)</span>
+        </div>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Dica: Use as setas do teclado ⬅️ / ➡️ para navegar</span>
+      </div>
+      <div class="notes-box" id="notesBox">
+        Bem-vindos à defesa do projeto Bru Inktattoo Studio. Este trabalho consiste no desenvolvimento de uma aplicação web de alta performance e apelo estético voltada a estúdios de tatuagem, integrando automação de agendamentos com o Notion via Model Context Protocol (MCP).
+      </div>
+
+      <div class="drawer-header" style="margin-top: 1rem;">
+        <div class="drawer-title">
+          <span>📂</span>
+          <span>Como Abrir no Apresentações Google (Google Slides)</span>
+        </div>
+      </div>
+      <div class="google-slides-guide">
+        <div class="step-card">
+          <div class="step-number">Passo 1</div>
+          <p>Clique no botão <strong>"📥 Baixar .PPTX"</strong> no topo da página ou use o arquivo <a href="file:///Users/49012848865/Documents/Projeto - Final/apresentacao_tcc.pptx" style="color: var(--gold-light);">apresentacao_tcc.pptx</a> gerado na pasta do projeto.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">Passo 2</div>
+          <p>Acesse <a href="https://slides.google.com" target="_blank" style="color: var(--gold-light);">slides.google.com</a> ou o seu Google Drive no navegador.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">Passo 3</div>
+          <p>Clique em <strong>"Abrir seletor de arquivos" (ícone de pasta)</strong> ➔ aba <strong>"Fazer upload"</strong> ➔ selecione o arquivo <code>apresentacao_tcc.pptx</code>. Todos os slides, textos, cards e cores serão importados nativamente!</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const thumbBtns = document.querySelectorAll('.thumb-btn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const notesBox = document.getElementById('notesBox');
+
+    function updateDeck() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      thumbBtns.forEach((btn, index) => {
+        btn.classList.toggle('active', index === currentSlide);
+      });
+
+      const currentNum = String(currentSlide + 1).padStart(2, '0');
+      const totalNum = String(slides.length).padStart(2, '0');
+      slideCounter.textContent = `${currentNum} / ${totalNum}`;
+      
+      const percentage = ((currentSlide + 1) / slides.length) * 100;
+      progressFill.style.width = `${percentage}%`;
+
+      const activeSlide = slides[currentSlide];
+      const notes = activeSlide.getAttribute('data-notes') || 'Sem notas para este slide.';
+      notesBox.textContent = notes;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < slides.length) {
+        currentSlide = index;
+        updateDeck();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        goToSlide(slides.length - 1);
+      }
+    });
+
+    // Touch swipe support on presentation stage
+    let touchStartX = 0;
+    const stage = document.getElementById('stageWrapper');
+    stage.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+      } else if (touchEndX - touchStartX > 50) {
+        prevSlide();
+      }
+    }, { passive: true });
+
+    // Initialize
+    updateDeck();
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "bru-inktattoo",
+  "version": "1.0.0",
+  "description": "Site institucional e agendamento de orçamentos — Bru Inktattoo Studio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NOTION_TOKEN=${NOTION_TOKEN} node server.js"
+  },
+  "keywords": ["tattoo", "agendamento", "notion"],
+  "license": "MIT"
+}

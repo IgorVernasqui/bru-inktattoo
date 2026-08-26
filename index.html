@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bru Inktattoo | Studio Privado de Tatuagem — Santo André</title>
+  <meta name="description"
+    content="Estúdio privado de tatuagem em Santo André por Bruna Ink. Especialista em Old School, Blackwork, Fineline e Projetos Autorais exclusivos. Agende seu atendimento." />
+
+  <!-- Preconnect & Google Fonts (Tipografia Editorial Display inspirada em Tears of Joy) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Modular CSS Architecture (SOLID) -->
+  <link rel="stylesheet" href="src/css/variables.css" />
+  <link rel="stylesheet" href="src/css/base.css" />
+  <link rel="stylesheet" href="src/css/components.css" />
+  <link rel="stylesheet" href="src/css/sections.css" />
+</head>
+
+<body>
+
+  <!-- ── BARRA DE NAVEGAÇÃO FIXA ── -->
+  <header>
+    <nav class="navbar" id="navbar" aria-label="Navegação Principal">
+      <div class="container nav-container">
+        <a href="#hero" class="nav-logo" aria-label="Bru Inktattoo Início">
+          <span class="logo-icon">&#10022;</span>
+          <span>Bru <em>Inktattoo</em></span>
+        </a>
+
+        <ul class="nav-links" id="navLinks" role="menubar">
+          <li role="none"><a href="#hero" class="nav-link is-active" role="menuitem">Início</a></li>
+          <li role="none"><a href="#portfolio" class="nav-link" role="menuitem">Portfólio</a></li>
+          <li role="none"><a href="#biografia" class="nav-link" role="menuitem">A Tatuadora</a></li>
+          <li role="none"><a href="#studio" class="nav-link" role="menuitem">O Studio</a></li>
+          <li role="none"><a href="#dicas" class="nav-link" role="menuitem">Dicas</a></li>
+          <li role="none"><a href="#o-que-e-tatuagem" class="nav-link" role="menuitem">A Arte</a></li>
+          <li role="none"><a href="#cuidados" class="nav-link" role="menuitem">Cuidados</a></li>
+          <li role="none"><a href="#parceiros" class="nav-link" role="menuitem">Parceiros</a></li>
+          <li role="none"><a href="#agendamento" class="btn btn-primary" role="menuitem"
+              style="padding: 8px 18px; font-size: 0.85rem;">Agendar</a></li>
+        </ul>
+
+        <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Abrir menu de navegação" aria-expanded="false">
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ── 1. SEÇÃO HERO ── -->
+    <section class="hero-section" id="hero">
+      <div class="hero-bg-layer" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badges">
+            <span class="badge">&#10022; Studio Privado em Santo André</span>
+            <span class="badge">&#10003; 100% Biossegurança &amp; Autoral</span>
+          </div>
+
+          <h1 class="hero-title">
+            Arte na pele, pensada <span class="glow">especialmente para você.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Transformando ideias em tatuagens exclusivas com identidade, sensibilidade e técnica. Especialista em
+            <strong>Old School</strong>, <strong>Blackwork</strong>, <strong>Fineline</strong> e <strong>Projetos
+              Autorais</strong>.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#agendamento" class="btn btn-primary" id="heroCtaBtn">
+              <span>Solicitar Atendimento</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="#portfolio" class="btn btn-ghost">
+              <span>Explorar Portfólio</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-value">3+</span>
+              <span class="stat-label">Anos de Trajetória Artística</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">100%</span>
+              <span class="stat-label">Materiais Cirúrgicos Descartáveis</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Exclusivo</span>
+              <span class="stat-label">Atendimento Privado &amp; Personalizado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. SEÇÃO PORTFÓLIO & CARROSSEL ── -->
+    <section class="section portfolio-section" id="portfolio">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Trabalhos Realizados</p>
+          <h2 class="section-title">Galeria de <em>Portfólio</em></h2>
+          <p class="section-subtitle">
+            Navegue pelos trabalhos recentes da artista. Cada arte expressa detalhes minuciosos, contraste apurado e
+            aplicação anatômica perfeita.
+          </p>
+        </div>
+
+        <!-- Container do Carrossel Dinâmico -->
+        <div id="portfolioCarousel"></div>
+      </div>
+    </section>
+
+    <!-- ── 3. SEÇÃO BIOGRAFIA DA TATUADORA ── -->
+    <section class="section" id="biografia">
+      <div class="container">
+        <div class="bio-grid">
+          <div class="bio-media-frame">
+            <img src="Recursos/Fotos/imagem_estudio_2.jpg" alt="Tatuadora Bruna no Studio Bru Inktattoo"
+              loading="lazy" />
+            <div class="bio-experience-badge">
+              <span class="years">3</span>
+              <div class="text">
+                <strong>Anos de Estúdio</strong><br />
+                Santo André - SP
+              </div>
+            </div>
+          </div>
+
+          <!-- Conteúdo populado dinamicamente via contentLoader.js -->
+          <div id="bioContentContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. SEÇÃO SOBRE O STUDIO ── -->
+    <section class="section" id="studio" style="background: var(--c-dark-bg);">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Espaço &amp; Conforto</p>
+          <h2 class="section-title">Nosso <em>Studio Privado</em></h2>
+          <p class="section-subtitle">
+            Um ambiente pensado em cada detalhe para proporcionar tranquilidade, privacidade e uma experiência
+            acolhedora durante todo o procedimento.
+          </p>
+        </div>
+
+        <div class="studio-grid">
+          <div class="studio-media-container">
+            <div class="studio-video-card" id="studioVideoWrapper">
+              <video id="studioVideo" controls playsinline preload="auto" poster="Recursos/Fotos/imagem_estudio_2.jpg"
+                aria-label="Vídeo do Studio Privado Bru Inktattoo em Santo André">
+                <source id="videoSource" src="Recursos/Video/video_estudio_1.mp4" type="video/mp4" />
+                Seu navegador não suporta a reprodução de vídeo.
+              </video>
+            </div>
+
+            <div class="video-switcher">
+              <button class="video-tab-btn active" data-video="Recursos/Video/video_estudio_1.mp4" id="videoBtn1">
+                <span>&#9654; Tour pelo Studio</span>
+              </button>
+              <button class="video-tab-btn" data-video="Recursos/Video/video_estudio_2.mp4" id="videoBtn2">
+                <span>&#9654; Detalhes do Espaço</span>
+              </button>
+            </div>
+
+            <div class="studio-photos-row">
+              <div class="studio-photo-card">
+                <img src="Recursos/Fotos/imagem_estudio_2.jpg" alt="Bancada de trabalho e esterilização"
+                  loading="lazy" />
+              </div>
+              <div class="studio-photo-card">
+                <img src="Recursos/Fotos/imagem_portfolio_1.png" alt="Ambiente artístico do estúdio" loading="lazy" />
+              </div>
+            </div>
+          </div>
+
+          <div class="studio-features-container">
+            <h3 style="font-family: var(--ff-title); font-size: 1.6rem; margin-bottom: 12px; color: var(--c-text);">
+              Excelência Técnica e Biossegurança
+            </h3>
+            <p style="color: var(--c-text-muted); font-size: 0.95rem; line-height: 1.7;">
+              Localizado em Santo André, o estúdio <strong>Bru Inktattoo</strong> opera em modelo de atendimento
+              privativo com hora marcada, garantindo que você tenha 100% da atenção da artista durante a sua sessão.
+            </p>
+
+            <div class="studio-features-list">
+              <div class="studio-feature-item">
+                <span class="studio-feature-icon">&#128737;</span>
+                <div>
+                  <div class="studio-feature-title">Biossegurança Rigorosa</div>
+                  <div class="studio-feature-text">Agulhas, biqueiras e filmes plásticos descartáveis. Tintas 100%
+                    originais certificadas pela Anvisa.</div>
+                </div>
+              </div>
+
+              <div class="studio-feature-item">
+                <span class="studio-feature-icon">&#9749;</span>
+                <div>
+                  <div class="studio-feature-title">Ambiente Climatizado &amp; Reservado</div>
+                  <div class="studio-feature-text">Música ambiente, poltrona anatômica ajustável e conforto para sessões
+                    curtas ou longas.</div>
+                </div>
+              </div>
+
+              <div class="studio-feature-item">
+                <span class="studio-feature-icon">&#127912;</span>
+                <div>
+                  <div class="studio-feature-title">Criação Colaborativa</div>
+                  <div class="studio-feature-text">Ajustamos tamanho, proporção e posicionamento no decalque com calma
+                    até você se apaixonar pelo projeto.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5. SEÇÃO DICAS DE ESCOLHA (O QUE TATUAR?) ── -->
+    <section class="section" id="dicas">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Guia Prático</p>
+          <h2 class="section-title">Dicas para sua <em>Tatuagem</em></h2>
+          <p class="section-subtitle">
+            Como escolher o tema, estilo e posicionamento ideal para sua próxima arte corporal.
+          </p>
+        </div>
+
+        <!-- Populado dinamicamente via contentLoader.js -->
+        <div class="dicas-grid" id="dicasGridContainer"></div>
+      </div>
+    </section>
+
+    <!-- ── 6. SEÇÃO O QUE É UMA TATUAGEM? ── -->
+    <section class="section" id="o-que-e-tatuagem" style="background: var(--c-dark-bg);">
+      <div class="container">
+        <div class="tattoo-concept-card">
+          <div class="tattoo-concept-grid">
+            <div class="tattoo-concept-text">
+              <p class="section-eyebrow" style="margin-bottom: 8px;">Conceito &amp; Ciência</p>
+              <h2 class="section-title" style="font-size: 2.2rem; margin-bottom: 20px;">
+                O que é uma <em>Tatuagem?</em>
+              </h2>
+              <!-- Populado dinamicamente via contentLoader.js -->
+              <div id="oQueETextContainer"></div>
+            </div>
+
+            <div class="tattoo-concept-diagram">
+              <h4
+                style="font-family: var(--ff-title); font-size: 1.05rem; color: var(--c-gold-light); margin-bottom: 8px;">
+                Como Funciona o Processo:
+              </h4>
+
+              <div class="diagram-step">
+                <span class="diagram-step-icon">&#128396;</span>
+                <div class="diagram-step-content">
+                  <strong>1. Desenho &amp; Stencil</strong>
+                  <span>Decalque anatômico e ajuste perfeito no corpo.</span>
+                </div>
+              </div>
+
+              <div class="diagram-step">
+                <span class="diagram-step-icon">&#9881;</span>
+                <div class="diagram-step-content">
+                  <strong>2. Aplicação do Pigmento</strong>
+                  <span>Deposição precisa na derme por microagulhas.</span>
+                </div>
+              </div>
+
+              <div class="diagram-step">
+                <span class="diagram-step-icon">&#10024;</span>
+                <div class="diagram-step-content">
+                  <strong>3. Cicatrização &amp; Fixação</strong>
+                  <span>Renovação epidérmica e fixação permanente do tom.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 7. SEÇÃO CUIDADOS PÓS-TATUAGEM ── -->
+    <section class="section" id="cuidados">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Saúde da Pele</p>
+          <h2 class="section-title">Como Cuidar da sua <em>Tattoo</em></h2>
+          <p class="section-subtitle">
+            O resultado final impecável depende de cuidados essenciais antes, durante e depois da sua sessão.
+          </p>
+        </div>
+
+        <!-- Populado dinamicamente via contentLoader.js -->
+        <div class="cuidados-timeline" id="cuidadosTimelineContainer"></div>
+      </div>
+    </section>
+
+    <!-- ── 8. SEÇÃO PARCEIROS ── -->
+    <section class="section" id="parceiros" style="background: var(--c-dark-bg);">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Marcas &amp; Fornecedores</p>
+          <h2 class="section-title">Nossos <em>Parceiros Oficiais</em></h2>
+          <p class="section-subtitle">
+            Trabalhamos exclusivamente com marcas consagradas de pigmentos, insumos cirúrgicos e cultura streetwear.
+          </p>
+        </div>
+
+        <!-- Populado dinamicamente via contentLoader.js -->
+        <div class="parceiros-grid" id="parceirosGridContainer"></div>
+      </div>
+    </section>
+
+    <!-- ── FORMULÁRIO DE AGENDAMENTO (INTEGRAÇÃO NOTION MCP) ── -->
+    <section class="section" id="agendamento">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Atendimento &amp; Orçamento</p>
+          <h2 class="section-title">Solicite seu <em>Agendamento</em></h2>
+          <p class="section-subtitle">
+            Preencha os 4 campos abaixo para enviar sua solicitação diretamente para o nosso sistema no
+            <strong>Notion</strong>. A tatuadora Bruna entrará em contato para confirmar horário e detalhes.
+          </p>
+        </div>
+
+        <div class="booking-form-card">
+          <form id="appointmentForm" novalidate aria-label="Formulário de Agendamento">
+            <div class="form-grid">
+
+              <!-- 1. Nome Completo -->
+              <div class="form-group" id="group-nome">
+                <label for="nome" class="form-label">
+                  <span class="label-icon">&#128100;</span>
+                  Nome Completo *
+                </label>
+                <input type="text" id="nome" name="nome" class="form-input" placeholder="Ex: Mariana Souza"
+                  autocomplete="name" required />
+                <span class="form-error" id="error-nome">
+                  <span aria-hidden="true">&#9888;</span> Por favor, informe seu nome completo (mínimo 3 letras).
+                </span>
+              </div>
+
+              <!-- 2. E-mail -->
+              <div class="form-group" id="group-email">
+                <label for="email" class="form-label">
+                  <span class="label-icon">&#9993;</span>
+                  E-mail de Contato *
+                </label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="Ex: mariana@email.com"
+                  autocomplete="email" required />
+                <span class="form-error" id="error-email">
+                  <span aria-hidden="true">&#9888;</span> Por favor, insira um e-mail válido (ex: seu@email.com).
+                </span>
+              </div>
+
+              <!-- 3. Celular / WhatsApp -->
+              <div class="form-group" id="group-celular">
+                <label for="celular" class="form-label">
+                  <span class="label-icon">&#128241;</span>
+                  Celular / WhatsApp *
+                </label>
+                <input type="tel" id="celular" name="celular" class="form-input" placeholder="Ex: (11) 98765-4321"
+                  autocomplete="tel" maxlength="15" required />
+                <span class="form-hint">Com DDD (10 ou 11 dígitos numéricos)</span>
+                <span class="form-error" id="error-celular">
+                  <span aria-hidden="true">&#9888;</span> Informe um número de WhatsApp válido com DDD.
+                </span>
+              </div>
+
+              <!-- 4. Resumo da Ideia -->
+              <div class="form-group full-width" id="group-resumo">
+                <label for="resumo" class="form-label">
+                  <span class="label-icon">&#128394;</span>
+                  Resumo da Ideia &amp; Preferência de Atendimento *
+                </label>
+                <textarea id="resumo" name="resumo" class="form-textarea"
+                  placeholder="Ex: Gostaria de uma tatuagem botânica em Fineline no antebraço direito de aprox. 12cm. Tenho preferência por atendimento presencial no Studio."
+                  rows="4" required></textarea>
+                <span class="form-hint">Descreva o estilo desejado, tamanho aproximado, local do corpo e preferência
+                  (Online ou Presencial).</span>
+                <span class="form-error" id="error-resumo">
+                  <span aria-hidden="true">&#9888;</span> Por favor, descreva sua ideia com ao menos 10 caracteres.
+                </span>
+              </div>
+
+            </div>
+
+            <div class="form-footer">
+              <div class="form-privacy">
+                <span style="color: var(--c-gold); font-size: 1.1rem;" aria-hidden="true">&#128274;</span>
+                <p>
+                  <strong>Privacidade Garantida (LGPD):</strong> Seus dados são utilizados exclusivamente para o contato
+                  e alinhamento do agendamento da sua arte.
+                </p>
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="submitBtn">
+                <span class="btn-text">
+                  <span>Solicitar Atendimento</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <span class="btn-loading" style="display: none; align-items: center; gap: 8px;">
+                  <span class="spinner"></span>
+                  <span>Registrando no Notion...</span>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo">
+            <span class="logo-icon">&#10022;</span>
+            <span>Bru <em>Inktattoo</em></span>
+          </a>
+          <p>
+            Studio Privado de Tatuagem em Santo André — por Bruna Ink.<br />
+            Arte autoral, Old School, Blackwork e Fineline com atendimento personalizado e máxima biossegurança.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#portfolio">Portfólio</a></li>
+            <li><a href="#biografia">A Tatuadora</a></li>
+            <li><a href="#studio">O Studio</a></li>
+            <li><a href="#dicas">Dicas</a></li>
+            <li><a href="#cuidados">Cuidados</a></li>
+            <li><a href="#parceiros">Parceiros</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contato &amp; Local</h4>
+          <ul>
+            <li style="color: var(--c-text-muted);">&#128205; Santo André — SP (Studio Privado)</li>
+            <li><a href="https://www.instagram.com/bru.inktattoo/" target="_blank" rel="noopener noreferrer">&#128248;
+                @bru.inktattoo</a></li>
+            <li><a href="#agendamento">&#128197; Agendar Consulta</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Bru Inktattoo Studio — Bruna Ink. Todos os direitos reservados.</p>
+        <p>Desenvolvido com Arquitetura Modular SOLID &amp; Integração Notion MCP.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Entry point JavaScript (ES Modules) -->
+  <script type="module" src="src/js/app.js"></script>
+</body>
+
+</html>

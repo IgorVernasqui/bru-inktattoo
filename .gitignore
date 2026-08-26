@@ -1,0 +1,11 @@
+# Segredos e Variáveis de Ambiente (NUNCA ENVIAR PARA O GITHUB)
+.env
+
+# Dependências do Node.js
+node_modules/
+npm-debug.log*
+
+# Arquivos temporários e de sistema
+.DS_Store
+*.tmp
+*.log
