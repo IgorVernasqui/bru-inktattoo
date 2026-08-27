@@ -81,3 +81,7 @@ NOTION_TOKEN=<seu_token_notion> npm start
   - 4 campos obrigatórios conforme o SDD: `Nome Completo`, `E-mail`, `Celular (WhatsApp com máscara)` e `Resumo da Ideia`.
   - Sanitização anti-XSS e conformidade com a LGPD.
   - Estados visuais de loading com spinner animado e Toasts de feedback (*Sucesso* e *Erro*).
+
+  Site do github: https://igorvernasqui.github.io/bru-inktattoo/
+
+  Versão v0.1 - 27/08/2026

@@ -1,5 +1,6 @@
 # Segredos e Variáveis de Ambiente (NUNCA ENVIAR PARA O GITHUB)
 .env
+.agents/mcp_config.json
 
 # Dependências do Node.js
 node_modules/
